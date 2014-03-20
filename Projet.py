@@ -35,10 +35,44 @@ def ecrirePGM(file_name, img):
 				f.write(str(img[x][y]) + "\n")
 		f.close()
 
+def lirePPM(file_name):
+	with open(file_name, "r") as f:
+		f.readline()
+		LARGEUR, HAUTEUR = f.readline().split()
+		LARGEUR = int(LARGEUR)
+		HAUTEUR = int(HAUTEUR)
+		VAL_MAX = int(f.readline())
+		img = [[[0 for i in range(0, 3)] for x in range(0, LARGEUR)] for x in range(0, HAUTEUR)]
+		for y in range(0, HAUTEUR):
+			for x in range(0, LARGEUR):
+				for i in range(0, 3):
+					img[x][y][i] = int(f.readline())
+		f.close()
+		return img
 
-test = lirePGM("images/boats.pgm")
-ecrirePGM("boats_test.pgm", test)
-test2 = lirePGM("boats_test.pgm")
+def ecrirePPM(file_name, img):
+	HAUTEUR = len(img)
+	LARGEUR = len(img[0])
+	with open(file_name, "w") as f:
+		f.write("P3\n" + str(LARGEUR) + " " + str(HAUTEUR) + "\n")
+		f.write(str(VAL_MAX) + "\n")
+		for y in range(0, HAUTEUR):
+			for x in range(0, LARGEUR):
+				for i in range(0, 3):
+					f.write(str(img[x][y][i]) + "\n")
+		f.close()
+
+
+
+
+boats = lirePGM("images/boats.pgm")
+ecrirePGM("boats_test.pgm", boats)
+#boats_test = lirePGM("boats_test.pgm")
+fleur = lirePPM("images/fleur.ppm")
+ecrirePPM("fleur_test.ppm", fleur)
+
+
+
 
 
 
