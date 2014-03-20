@@ -30,6 +30,7 @@ def ecrirePGM(file_name, img):
 	LARGEUR = len(img[0])
 	with open(file_name, "w") as f:
 		f.write("P2\n" + str(LARGEUR) + " " + str(HAUTEUR) + "\n")
+		f.write(str(VAL_MAX) + "\n")
 		for y in range(0, HAUTEUR):
 			for x in range(0, LARGEUR):
 				f.write(str(img[x][y]) + "\n")
@@ -62,6 +63,39 @@ def ecrirePPM(file_name, img):
 					f.write(str(img[x][y][i]) + "\n")
 		f.close()
 
+def RGBtoGray(src):
+	dest = [[0 for x in range(0, LARGEUR)] for x in range(0, HAUTEUR)]
+	for y in range(0, HAUTEUR):
+		for x in range(0, LARGEUR):
+			dest[x][y] = int(0.299*src[x][y][0] + 0.587*src[x][y][1] + 0.114*src[x][y][2])
+	return dest
+
+def binarisation(src, seuil):
+	dest = [[0 for x in range(0, LARGEUR)] for x in range(0, HAUTEUR)]
+	for y in range(0, HAUTEUR):
+		for x in range(0, LARGEUR):
+			if src[x][y] > seuil:
+				dest[x][y] = 255
+			else:
+				dest[x][y] = 0
+	return dest
+
+def imageUnie(colour):
+	dest = [[0 for x in range(0, LARGEUR)] for x in range(0, HAUTEUR)]
+	for y in range(0, HAUTEUR):
+		for x in range(0, LARGEUR):
+			dest[x][y] = colour
+	return dest
+
+def degradeHorizontal(start, end):
+	dest = [[0 for x in range(0, LARGEUR)] for x in range(0, HAUTEUR)]
+	inc = (end-start)/float(LARGEUR)
+	for y in range(0, HAUTEUR):
+		for x in range(0, LARGEUR):
+			dest[x][y] = int(start + x*inc)
+	return dest
+
+
 
 
 
@@ -70,8 +104,12 @@ ecrirePGM("boats_test.pgm", boats)
 #boats_test = lirePGM("boats_test.pgm")
 fleur = lirePPM("images/fleur.ppm")
 ecrirePPM("fleur_test.ppm", fleur)
-
-
+ecrirePGM("fleurBW.pgm", RGBtoGray(fleur))
+ecrirePGM("boatsBin.pgm", binarisation(boats, 128))
+colour = [128, 200, 100]
+ecrirePGM("imageUnieBW.pgm", imageUnie(128))
+ecrirePPM("imageUnieRGB.ppm", imageUnie(colour))
+ecrirePGM("degradHorizon.pgm", degradeHorizontal(1, 255))
 
 
 
