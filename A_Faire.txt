@@ -1,9 +1,9 @@
-
-
-faire gradian 
-faire miroir
-faire convolution
+faire gradian*
+faire miroir*
+faire convolution*
 faire filtre 
+
+* = fait
 
 gradian:
 
