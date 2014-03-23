@@ -3,6 +3,7 @@
 # -*- coding: utf-8 -*- 
 
 from PIL import Image
+from math import sqrt
 
 LARGEUR = 256
 HAUTEUR = 256
@@ -96,11 +97,13 @@ def degradeHorizontal(start, end):
 	return dest
 
 def sum_coef(filtre):
-	sum = 0
+	somme = 0
 	for y in filtre:
 		for x in y:
-			sum += x
-	return sum
+			somme += x
+	if somme == 0:
+		somme = 1
+	return somme
 
 def convolutionPGM(src, filtre):
 	somme = sum_coef(filtre)
@@ -118,6 +121,20 @@ def convolutionPGM(src, filtre):
 			dest[x][y] = tmp
 	return dest
 
+def gradientPGM(src):
+	filtre_gradx = [[-1, 0, 1], [-1, 0, 1], [-1, 0, 1]]
+	filtre_grady = [[-1, -1, -1], [0, 0, 0], [1, 1, 1]]
+	dest = [[0 for x in range(0, LARGEUR)] for x in range(0, HAUTEUR)]
+	gx = convolutionPGM(src, filtre_gradx)
+	gy = convolutionPGM(src, filtre_grady)
+	for y in range(0, HAUTEUR):
+		for x in range(0, LARGEUR):
+			dest[x][y] = sqrt(gx[x][y]**2 +gy[x][y]**2)
+	return dest
+
+	
+
+
 
 
 
@@ -127,8 +144,8 @@ def convolutionPGM(src, filtre):
 filtre_moyenneur = [[1, 1, 1], [1, 1, 1], [1, 1, 1]];
 filtre_gaussien3 = [ [1, 2, 1], [2, 4, 2], [1, 2, 1]];
 filtre_gaussien5 = [ [1, 4, 6, 4, 1], [4, 16, 25, 16, 4], [6, 24, 36, 24, 6], [4, 16, 25, 16, 4], [1, 4, 6, 4, 1]];
-
-
+filtre_gradx = [[-1, 0, 1], [-1, 0, 1], [-1, 0, 1]]
+filtre_grady = [[-1, -1, -1], [0, 0, 0], [1, 1, 1]]
 
 boats = lirePGM("images/boats.pgm")
 # ecrirePGM("boats_test.pgm", boats)
@@ -142,7 +159,7 @@ boats = lirePGM("images/boats.pgm")
 # ecrirePGM("degradHorizon.pgm", degradeHorizontal(1, 255))
 
 ecrirePGM("test_convol_moy.pgm", convolutionPGM(boats, filtre_moyenneur))
-ecrirePGM("test_convol_gauss5.pgm", convolutionPGM(boats, filtre_gaussien5))
+ecrirePGM("test_grad.pgm", gradientPGM(boats))
 
 
 
