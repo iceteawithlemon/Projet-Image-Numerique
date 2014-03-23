@@ -132,7 +132,23 @@ def gradientPGM(src):
 			dest[x][y] = sqrt(gx[x][y]**2 +gy[x][y]**2)
 	return dest
 
+def miroir_horizontal(src):
+	HAUTEUR = len(src) -1
+	LARGEUR = len(src[0]) -1
+	dest = [[0 for x in range(0, LARGEUR)] for x in range(0, HAUTEUR)]
+	for y in range(0, HAUTEUR):
+		for x in range(0, LARGEUR):
+			dest[x][y] = src[LARGEUR-x][y]
+	return dest
 	
+def miroir_vertical(src):
+	HAUTEUR = len(src) -1
+	LARGEUR = len(src[0]) -1
+	dest = [[0 for x in range(0, LARGEUR)] for x in range(0, HAUTEUR)]
+	for y in range(0, HAUTEUR):
+		for x in range(0, LARGEUR):
+			dest[x][y] = src[x][HAUTEUR - y]
+	return dest
 
 
 
@@ -158,8 +174,9 @@ boats = lirePGM("images/boats.pgm")
 # ecrirePPM("imageUnieRGB.ppm", imageUnie(colour))
 # ecrirePGM("degradHorizon.pgm", degradeHorizontal(1, 255))
 
-ecrirePGM("test_convol_moy.pgm", convolutionPGM(boats, filtre_moyenneur))
-ecrirePGM("test_grad.pgm", gradientPGM(boats))
+# ecrirePGM("test_convol_moy.pgm", convolutionPGM(boats, filtre_moyenneur))
+# ecrirePGM("test_grad.pgm", gradientPGM(boats))
+ecrirePGM("miroir.pgm", miroir_vertical(boats))
 
 
 
