@@ -162,6 +162,7 @@ filtre_gaussien3 = [ [1, 2, 1], [2, 4, 2], [1, 2, 1]];
 filtre_gaussien5 = [ [1, 4, 6, 4, 1], [4, 16, 25, 16, 4], [6, 24, 36, 24, 6], [4, 16, 25, 16, 4], [1, 4, 6, 4, 1]];
 filtre_gradx = [[-1, 0, 1], [-1, 0, 1], [-1, 0, 1]]
 filtre_grady = [[-1, -1, -1], [0, 0, 0], [1, 1, 1]]
+filtre_median = [[30, 10, 20], [10, 250, 20], [25, 10, 30]]
 
 boats = lirePGM("images/boats.pgm")
 # ecrirePGM("boats_test.pgm", boats)
@@ -174,7 +175,7 @@ boats = lirePGM("images/boats.pgm")
 # ecrirePPM("imageUnieRGB.ppm", imageUnie(colour))
 # ecrirePGM("degradHorizon.pgm", degradeHorizontal(1, 255))
 
-# ecrirePGM("test_convol_moy.pgm", convolutionPGM(boats, filtre_moyenneur))
+ecrirePGM("test_convol_med.pgm", convolutionPGM(boats, filtre_median))
 # ecrirePGM("test_grad.pgm", gradientPGM(boats))
 ecrirePGM("miroir.pgm", miroir_vertical(boats))
 

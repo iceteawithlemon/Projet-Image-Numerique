@@ -1,7 +1,12 @@
 faire gradian*
 faire miroir*
 faire convolution*
-faire filtre 
+faire filtres: *
+	- median*
+	- moyenneur*
+	- gaussien*
+
+faire interface (Qt)
 
 * = fait
 
