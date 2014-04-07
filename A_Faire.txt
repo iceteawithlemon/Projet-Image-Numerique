@@ -2,9 +2,11 @@ faire gradian*
 faire miroir*
 faire convolution*
 faire filtres: *
-	- median*
+	- median
 	- moyenneur*
 	- gaussien*
+faire "LUT"
+creer generateurs de filtres (gauss, etc.)
 
 faire interface (Qt)
 
@@ -21,12 +23,12 @@ Gy [-1 -1 -1]
    [1  1  1 ]
    
 |Gx * I|
-|Gy * I|       sqrt(Gx²+Gy²)  ->  nouveau I  -> I'
+|Gy * I|       sqrt(Gxï¿½+Gyï¿½)  ->  nouveau I  -> I'
 
 
 convolution avec Gx
 idem avec Gy
-pour chaque pixel:   I'(x,y)=sqrt[Gx²(x,y)+Gy²(x,y)]
+pour chaque pixel:   I'(x,y)=sqrt[Gxï¿½(x,y)+Gyï¿½(x,y)]
 puis visualiser I'
 
 
@@ -36,5 +38,5 @@ semaine 14 -> juste TD pas cours
 semaine 15 -> cours + TD
 semaine 16 -> juste TD pas cours
 
-projet à rendre le 30 Avril max
+projet ï¿½ rendre le 30 Avril max
 
