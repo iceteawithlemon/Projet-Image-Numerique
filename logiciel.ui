@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>810</width>
+    <height>452</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QPushButton" name="Ouvrir">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>20</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Ouvrir Image</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="mirroir">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>20</y>
+     <width>111</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>Mirroir</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Mirroir Horizontal</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Mirroir Vertical</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="filtre">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>20</y>
+     <width>101</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>Filtre</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Filtre Gaussien</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Filtre Moyenneur</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Filtre Median</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QPushButton" name="fermer">
+   <property name="geometry">
+    <rect>
+     <x>730</x>
+     <y>20</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Fermer</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="lvl_gris">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>20</y>
+     <width>101</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Niveau de gris</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="sauvegarde">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>20</y>
+     <width>121</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Sauvegarder Image</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>fermer</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>785</x>
+     <y>35</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>775</x>
+     <y>71</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Ouvrir</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>65</x>
+     <y>32</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>62</x>
+     <y>71</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>sauvegarde</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>523</x>
+     <y>39</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>518</x>
+     <y>68</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
