@@ -3,11 +3,12 @@
 # -*- coding: utf-8 -*- 
 
 from PIL import Image
-from math import sqrt
+from math import sqrt, pi, exp
 
 LARGEUR = 256
 HAUTEUR = 256
 VAL_MAX = 255
+VAL_MIN = 0
 
 def lireEnTete(fichier, mode):
 	f_mode = f.read(2)
@@ -151,18 +152,63 @@ def miroir_vertical(src):
 	return dest
 
 
+def filtre_moyenneur(taille):
+	return [[1 for x in range(0, taille)] for x in range(0, taille)]
+
+def filtre_gaussien(taille, sigma = 1):
+	offset = int(float(taille)/2)
+	filtre = [[0 for x in range(0, taille)] for x in range(0, taille)]
+	for x in range(-offset, offset+1):
+		for y in range(-offset, offset+1):
+			filtre[x+offset][y+offset] =  1/(2*pi*sigma**2) * exp(-(x**2 + y**2)/(2*sigma**2))
+	coef = 1/filtre[0][0]
+	for x in range(0, taille):
+		for y in range(0, taille):
+			filtre[x][y] = int(filtre[x][y] * coef)
+	return filtre
+
+def median_PGM(src, offset):
+	HAUTEUR = len(src)
+	LARGEUR = len(src[0])
+	dest = [[0 for x in range(0, LARGEUR)] for x in range(0, HAUTEUR)]
+	for y in range(offset, HAUTEUR  - offset):
+		for x in range(offset, LARGEUR - offset):
+			temp_vals = []
+			for i in range(-offset, offset):
+				for j in range(-offset, offset):
+					temp_vals.append(src[x+i][y+j])
+			dest[x][y] = median_value(temp_vals)
+	return dest
+
+def median_value(values):
+	values.sort()
+	l = int(len(values)/2)
+	if len(values) %2 == 0:
+		return (values[l] + values[l+1]) / 2
+	return values[l]
+
+def check_level(pixel, level):
+	val = pixel + level
+	if(val < VAL_MIN):
+		return VAL_MIN
+	elif(val > VAL_MAX):
+		return VAL_MAX
+	else:
+		return val
+
+def LUT_PGM(src, level):
+	HAUTEUR = len(src)
+	LARGEUR = len(src[0])
+	dest = [[0 for x in range(0, LARGEUR)] for x in range(0, HAUTEUR)]
+	for y in range(0, HAUTEUR):
+		for x in range(0, LARGEUR):
+			dest[x][y] = check_level(src[x][y], level)
+	return dest
 
 
 
 
 
-
-filtre_moyenneur = [[1, 1, 1], [1, 1, 1], [1, 1, 1]];
-filtre_gaussien3 = [ [1, 2, 1], [2, 4, 2], [1, 2, 1]];
-filtre_gaussien5 = [ [1, 4, 6, 4, 1], [4, 16, 25, 16, 4], [6, 24, 36, 24, 6], [4, 16, 25, 16, 4], [1, 4, 6, 4, 1]];
-filtre_gradx = [[-1, 0, 1], [-1, 0, 1], [-1, 0, 1]]
-filtre_grady = [[-1, -1, -1], [0, 0, 0], [1, 1, 1]]
-filtre_median = [[30, 10, 20], [10, 250, 20], [25, 10, 30]]
 
 boats = lirePGM("images/boats.pgm")
 # ecrirePGM("boats_test.pgm", boats)
@@ -175,9 +221,11 @@ boats = lirePGM("images/boats.pgm")
 # ecrirePPM("imageUnieRGB.ppm", imageUnie(colour))
 # ecrirePGM("degradHorizon.pgm", degradeHorizontal(1, 255))
 
-ecrirePGM("test_convol_med.pgm", convolutionPGM(boats, filtre_median))
-# ecrirePGM("test_grad.pgm", gradientPGM(boats))
-ecrirePGM("miroir.pgm", miroir_vertical(boats))
+# ecrirePGM("test_LUT_eclaircir.pgm", LUT_PGM(boats, 100))
+# ecrirePGM("test_LUT_assombrir.pgm", LUT_PGM(boats, -100))
+# # ecrirePGM("test_grad.pgm", gradientPGM(boats))
+#ecrirePGM("miroir.pgm", miroir_vertical(boats))
+
 
 
 
