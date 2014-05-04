@@ -15,7 +15,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
+    <item row="1" column="0">
      <widget class="QLabel" name="image_area">
       <property name="text">
        <string/>
@@ -41,8 +41,9 @@
      <string>Menu</string>
     </property>
     <addaction name="actionOuvrir"/>
-    <addaction name="separator"/>
     <addaction name="actionFermer"/>
+    <addaction name="separator"/>
+    <addaction name="actionSauvegarder_Sous"/>
    </widget>
    <widget class="QMenu" name="menuFiltres">
     <property name="title">
@@ -51,9 +52,31 @@
     <addaction name="actionFiltre_Gaussien"/>
     <addaction name="actionFiltre_Median"/>
     <addaction name="actionFiltre_Moyenneur"/>
+    <addaction name="separator"/>
+    <addaction name="actionLUT"/>
+    <addaction name="separator"/>
+    <addaction name="actionNiveaux_de_gris"/>
+    <addaction name="actionBinarisation"/>
+   </widget>
+   <widget class="QMenu" name="menuD_tection_de_contours">
+    <property name="title">
+     <string>Détection de contours</string>
+    </property>
+    <addaction name="actionSobel"/>
+    <addaction name="actionPrewitt"/>
+    <addaction name="actionLaplacien"/>
+   </widget>
+   <widget class="QMenu" name="menuMiroirs">
+    <property name="title">
+     <string>Miroirs</string>
+    </property>
+    <addaction name="actionHorizontal"/>
+    <addaction name="actionVertical"/>
    </widget>
    <addaction name="menuOuvrir"/>
    <addaction name="menuFiltres"/>
+   <addaction name="menuD_tection_de_contours"/>
+   <addaction name="menuMiroirs"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionQuit">
@@ -70,10 +93,16 @@
    <property name="text">
     <string>Ouvrir</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
   </action>
   <action name="actionFermer">
    <property name="text">
     <string>Fermer</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
    </property>
   </action>
   <action name="actionFiltre_Gaussien">
@@ -89,6 +118,54 @@
   <action name="actionFiltre_Moyenneur">
    <property name="text">
     <string>Filtre Moyenneur</string>
+   </property>
+  </action>
+  <action name="actionSauvegarder_Sous">
+   <property name="text">
+    <string>Sauvegarder Sous</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
+   </property>
+  </action>
+  <action name="actionSobel">
+   <property name="text">
+    <string>Sobel</string>
+   </property>
+  </action>
+  <action name="actionPrewitt">
+   <property name="text">
+    <string>Prewitt</string>
+   </property>
+  </action>
+  <action name="actionLaplacien">
+   <property name="text">
+    <string>Laplacien</string>
+   </property>
+  </action>
+  <action name="actionHorizontal">
+   <property name="text">
+    <string>Horizontal</string>
+   </property>
+  </action>
+  <action name="actionVertical">
+   <property name="text">
+    <string>Vertical</string>
+   </property>
+  </action>
+  <action name="actionLUT">
+   <property name="text">
+    <string>LUT</string>
+   </property>
+  </action>
+  <action name="actionNiveaux_de_gris">
+   <property name="text">
+    <string>Niveaux de gris</string>
+   </property>
+  </action>
+  <action name="actionBinarisation">
+   <property name="text">
+    <string>Binarisation</string>
    </property>
   </action>
  </widget>
