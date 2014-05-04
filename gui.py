@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'gui.ui'
 #
-# Created: Sun May 04 15:53:23 2014
+# Created: Sun May 04 21:03:48 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -84,9 +84,12 @@ class Ui_MainWindow(object):
         self.actionNiveaux_de_gris.setObjectName(_fromUtf8("actionNiveaux_de_gris"))
         self.actionBinarisation = QtGui.QAction(MainWindow)
         self.actionBinarisation.setObjectName(_fromUtf8("actionBinarisation"))
+        self.actionSauvegarder = QtGui.QAction(MainWindow)
+        self.actionSauvegarder.setObjectName(_fromUtf8("actionSauvegarder"))
         self.menuOuvrir.addAction(self.actionOuvrir)
         self.menuOuvrir.addAction(self.actionFermer)
         self.menuOuvrir.addSeparator()
+        self.menuOuvrir.addAction(self.actionSauvegarder)
         self.menuOuvrir.addAction(self.actionSauvegarder_Sous)
         self.menuFiltres.addAction(self.actionFiltre_Gaussien)
         self.menuFiltres.addAction(self.actionFiltre_Median)
@@ -134,4 +137,6 @@ class Ui_MainWindow(object):
         self.actionLUT.setText(_translate("MainWindow", "LUT", None))
         self.actionNiveaux_de_gris.setText(_translate("MainWindow", "Niveaux de gris", None))
         self.actionBinarisation.setText(_translate("MainWindow", "Binarisation", None))
+        self.actionSauvegarder.setText(_translate("MainWindow", "Sauvegarder", None))
+        self.actionSauvegarder.setShortcut(_translate("MainWindow", "Ctrl+S", None))
 

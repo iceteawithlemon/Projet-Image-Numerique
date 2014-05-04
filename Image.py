@@ -116,7 +116,6 @@ class PGM(Image):
 			self.values = img
 
 	def ecrirePGM(self, fileName):
-		print "writing: ", fileName
 		HAUTEUR = self.hauteur
 		LARGEUR = self.largeur
 		with open(fileName, "w") as f:
@@ -201,7 +200,7 @@ class PGM(Image):
 				tmp = 0
 				for i in range(0, hauteur_filtre):
 					for j in range(0, largeur_filtre):
-						tmp += (self.values[x-j][y-i] * filtre[i][j])/somme
+						tmp += (self.values[(x-j)%self.largeur][(y-i)%self.hauteur] * filtre[i][j])/somme
 				dest[x][y] = tmp
 		self.hauteur -= hf
 		self.largeur -= lf
@@ -219,17 +218,17 @@ class PGM(Image):
 				dest[x][y] = sqrt(gx[x][y]**2 +gy[x][y]**2)
 		self.values = dest
 
-	def dCPrewitt(self):
+	def dcPrewitt(self):
 		filtre_gradx = [[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]]
 		filtre_grady = [[1, 2, 1], [0, 0, 0], [-1, -2, -1]]
 		self.detectionContours(filtre_gradx, filtre_grady)
 
-	def dcSobel(src):
+	def dcSobel(self):
 		filtre_gradx = [[-1, 0, 1], [-1, 0, 1], [-1, 0, 1]]
 		filtre_grady = [[-1, -1, -1], [0, 0, 0], [1, 1, 1]]
-		self.detectionCountours(filtre_gradx, filtre_grady)
+		self.detectionContours(filtre_gradx, filtre_grady)
 
-	def dcLaplacien(src):
+	def dcLaplacien(self):
 		filtre = [[-1, -1, -1], [-1, 8, 1], [-1, -1, -1]]
 		self.values = self.convolution(filtre)
 
@@ -241,7 +240,7 @@ class PGM(Image):
 		filtre = [[0 for x in range(0, taille)] for x in range(0, taille)]
 		for x in range(-offset, offset+1):
 			for y in range(-offset, offset+1):
-				filtre[x+offset][y+offset] =  1/(2*pi*sigma**2) * exp(-(x**2 + y**2)/(2*sigma**2))
+				filtre[(x+offset)%self.largeur][(y+offset)%self.hauteur] =  1/(2*pi*sigma**2) * exp(-(x**2 + y**2)/(2*sigma**2))
 		coef = 1/filtre[0][0]
 		for x in range(0, taille):
 			for y in range(0, taille):
@@ -274,7 +273,7 @@ class PGM(Image):
 				temp_vals = []
 				for i in range(-offset, offset):
 					for j in range(-offset, offset):
-						temp_vals.append(src[x+i][y+j])
+						temp_vals.append(self.values[(x+i)%LARGEUR][(y+j)%HAUTEUR])
 				dest[x][y] = self.median_value(temp_vals)
 		self.values = dest
 

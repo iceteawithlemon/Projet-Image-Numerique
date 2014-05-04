@@ -43,6 +43,7 @@
     <addaction name="actionOuvrir"/>
     <addaction name="actionFermer"/>
     <addaction name="separator"/>
+    <addaction name="actionSauvegarder"/>
     <addaction name="actionSauvegarder_Sous"/>
    </widget>
    <widget class="QMenu" name="menuFiltres">
@@ -166,6 +167,14 @@
   <action name="actionBinarisation">
    <property name="text">
     <string>Binarisation</string>
+   </property>
+  </action>
+  <action name="actionSauvegarder">
+   <property name="text">
+    <string>Sauvegarder</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
    </property>
   </action>
  </widget>
