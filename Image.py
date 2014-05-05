@@ -189,21 +189,24 @@ class PGM(Image):
 		return somme
 
 	def convolution(self, filtre):
+		HAUTEUR = self.hauteur
+		LARGEUR = self.largeur
 		somme = self.sum_coef(filtre)
 		hauteur_filtre = len(filtre)
 		largeur_filtre = len(filtre[0])
-		dest = [[0 for x in range(0, self.largeur+1)] for x in range(0, self.hauteur+1)]
+		dest = [[0 for x in range(0, LARGEUR)] for x in range(0, HAUTEUR)]
 		lf = int(float(largeur_filtre) / 2)
 		hf = int(float(hauteur_filtre) / 2)
-		for y in range(0, self.hauteur - hf ):
-			for x in range(0, self.largeur - lf ):
+		for y in range(0, HAUTEUR - hf):
+			for x in range(0, LARGEUR - lf):
 				tmp = 0
 				for i in range(0, hauteur_filtre):
 					for j in range(0, largeur_filtre):
-						tmp += (self.values[(x-j)%self.largeur][(y-i)%self.hauteur] * filtre[i][j])/somme
-				dest[x][y] = tmp
-		self.hauteur -= hf
-		self.largeur -= lf
+						tmp += (self.values[x-j][y-i] * filtre[i][j])/somme
+				if tmp > 0:
+					dest[x][y] = tmp
+				else:
+					dest[x][y] = 0
 		return dest
 
 	def detectionContours(self, filtre_gradx, filtre_grady):
@@ -215,18 +218,18 @@ class PGM(Image):
 		for y in range(0, HAUTEUR):
 			for x in range(0, LARGEUR):
 				#print x, y
-				dest[x][y] = sqrt(gx[x][y]**2 +gy[x][y]**2)
-		self.values = dest
+				dest[x][y] = int(sqrt(gx[x][y]**2 + gy[x][y]**2))
+		return dest
 
 	def dcPrewitt(self):
 		filtre_gradx = [[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]]
 		filtre_grady = [[1, 2, 1], [0, 0, 0], [-1, -2, -1]]
-		self.detectionContours(filtre_gradx, filtre_grady)
+		self.values = self.detectionContours(filtre_gradx, filtre_grady)
 
 	def dcSobel(self):
 		filtre_gradx = [[-1, 0, 1], [-1, 0, 1], [-1, 0, 1]]
 		filtre_grady = [[-1, -1, -1], [0, 0, 0], [1, 1, 1]]
-		self.detectionContours(filtre_gradx, filtre_grady)
+		self.values = self.detectionContours(filtre_gradx, filtre_grady)
 
 	def dcLaplacien(self):
 		filtre = [[-1, -1, -1], [-1, 8, 1], [-1, -1, -1]]
@@ -297,8 +300,11 @@ class PGM(Image):
 
 
 # boats2 = PGM()
+# boats2.lirePGM("images/boats.pgm")
 # boats2.afficher()
-# boats2.lirePGM("images/camera.pgm")
+# boats2.dcSobel()
+# boats2.ecrirePGM("test_classes.pgm")
+
 
 
 # test = PPM()
